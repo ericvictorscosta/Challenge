@@ -3,6 +3,7 @@ const csv = require("csvtojson");
 const { PhoneNumberUtil } = require("google-libphonenumber");
 const phoneUtil = PhoneNumberUtil.getInstance();
 const csvFilePath = fs.readFileSync("./input.csv", { encoding: "utf8" });
+
 function parseBoolean(value) {
   return ["1", "yes"].includes(value.trim());
 }
@@ -13,17 +14,8 @@ function isPhoneAddress(value) {
     return false;
   }
 }
-
 function isEmailAddress(value) {
   return /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/.test(value);
-}
-function parseAddresses(column, value) {
-  if (!value) {
-    return;
-  }
-  const [type, ...tags] = column.split(" ");
-
-  return { type, tags, address: value };
 }
 /**
  *
@@ -114,6 +106,3 @@ async function Main() {
   );
 }
 Main();
-
-// const number = phoneUtil.parseAndKeepRawInput('(51) 9-8242-6733', 'BR');
-// String(number.getCountryCode()) + number.getNationalNumber()
